@@ -1,7 +1,10 @@
 var gulp = require('gulp'),
     browserify = require('browserify'),
     babelify = require('babelify'),
-    source = require('vinyl-source-stream');
+    source = require('vinyl-source-stream'),
+    uglify = require('gulp-uglify')
+    envify = require('loose-envify'),
+    buffer = require('vinyl-buffer');;
 
 gulp.task('watch', function () {
     gulp.watch('./src/*.js', ['dist']);
@@ -19,8 +22,14 @@ gulp.task('dist',  function () {
             debug: true
         }
     )
-        .transform(babelify, {presets: ['es2015', 'stage-2', 'react']})
+        .transform(babelify, {presets: ['es2015', 'stage-2']})
         .bundle()
         .pipe(source('index.js'))
+        .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+        .pipe(uglify()) // now gulp-uglify works
         .pipe(gulp.dest('./')) ;
+});
+
+
+gulp.task('default', ['dist'], function() {
 });

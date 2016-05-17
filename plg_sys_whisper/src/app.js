@@ -30,7 +30,7 @@ const dispatch = (event) => {
 	console.log('whisper.dispatch', event);
 	var d = event.detail;
 	store.dispatch(d.action);
-}
+};
 
 /**
  * Get the current state
@@ -40,7 +40,7 @@ const dispatch = (event) => {
 const getState = (event) => {
 	var d = event.detail;
 	return d(store.getState());
-}
+};
 
 /**
  * Subscribe a function which is run when the store's state
@@ -50,7 +50,7 @@ const getState = (event) => {
 const subscribe = (event) => {
 	var d = event.detail;
 	store.subscribe(d);
-}
+};
 
 // Watch for any custom events (fired by components/modules etc)
 document.addEventListener('whisper.addReducer', addReducer);

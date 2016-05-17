@@ -12,7 +12,6 @@
 	<files folder="site">
 		<filename>todo.php</filename>
 		<filename>controller.php</filename>
-		<folder>models</folder>
 		<folder>views</folder>
 	</files>
 

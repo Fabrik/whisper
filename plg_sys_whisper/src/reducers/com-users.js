@@ -2,20 +2,17 @@
  * Created by rob on 17/05/2016.
  */
 
-import Immutable from 'immutable';
+import reducer from '../lib/reducer-helper';
 
-
-const initialState = Immutable.List();
-
-export default function comUsers(state = initialState, action) {
+export default function comUsers(state = {items: [], select: null}, action) {
     if (!action || !action.type) {
         return state;
     }
     switch (action.type) {
-        case 'COM_USERS.INCREMENT':
-            return state.insert(1);
-        case 'COM_USERS.DECREMENT':
-            return state - 1
+        case 'COM_USERS.ADD':
+            return reducer.add(state, action);
+        case 'COM_USERS.DELETE':
+            return reducer.remove(state, action);
         default:
             return state
     }

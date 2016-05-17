@@ -4,7 +4,10 @@
  * @param data
  * @returns {*}
  */
-function getEvent(name, data) {
+Joomla = Joomla ? Joomla : {};
+Joomla.whisper = Joomla.whisper ? Joomla.whisper : {};
+
+Joomla.whisper.trigger = function (name, data) {
     var event;
     if (window.CustomEvent) {
         event = new CustomEvent(name, {detail: data});
@@ -18,10 +21,32 @@ function getEvent(name, data) {
 /**
  * Domready polly fill
  */
-function ready(fn) {
-    if (document.readyState != 'loading'){
+Joomla.whisper.ready = function (fn) {
+    if (document.readyState != 'loading') {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+
+Joomla.whisper.reducerHelper = {
+    remove: function (items, id, pk) {
+        if (pk === undefined) {
+            pk = 'id';
+        }
+        var i = items.findIndex(function (item) {
+            return item[pk].toString() === id.toString();
+        });
+        if (i === -1) {
+            return items;
+        }
+        return [
+            ...items.slice(0, i),
+            ...items.slice(i + 1)]
+            ;
+    },
+
+    add: function (items, item) {
+        return items.concat(item);
     }
 }

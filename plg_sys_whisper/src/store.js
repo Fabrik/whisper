@@ -10,8 +10,7 @@ import thunk from 'redux-thunk';
  */
 export function configureStore(initialState) {
     console.log('create store initial state = ', initialState);
-    let store = createStore(createReducer(), initialState, applyMiddleware(thunk, logger()),
-        window.devToolsExtension ? window.devToolsExtension() : f => f);
+    let store = createStore(createReducer(), initialState, applyMiddleware(thunk, logger()));
     store.asyncReducers = {};
     return store;
 }
