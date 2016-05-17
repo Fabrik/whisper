@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 $doc = JFactory::getDocument();
-$doc->addScript(JURI::root() . '/plugins/system/whisper/whisper-tools.js');
 $doc->addScript(JURI::root() . '/media/com_todo/js/index.js');
 ?>
 <h1>Todos</h1>

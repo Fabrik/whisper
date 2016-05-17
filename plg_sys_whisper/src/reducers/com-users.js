@@ -4,6 +4,13 @@
 
 import reducer from '../lib/reducer-helper';
 
+/**
+ * A bare bones example of a core reducer that might be added to manage
+ * core Joomla! component's data within Whisper
+ * @param {Object} state
+ * @param {Object} action
+ * @returns {Object}
+ */
 export default function comUsers(state = {items: [], select: null}, action) {
     if (!action || !action.type) {
         return state;

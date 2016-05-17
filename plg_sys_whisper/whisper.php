@@ -27,7 +27,7 @@ class PlgSystemWhisper extends JPlugin
 	{
 		$doc = JFactory::getDocument();
 		JHtml::_('behavior.core');
-		JHtml::_('jquery.framework');
 		$doc->addScript(JURI::root() .'/plugins/system/whisper/whisper.js');
+		$doc->addScript(JURI::root() .'/plugins/system/whisper/whisper-tools.js');
 	}
 }

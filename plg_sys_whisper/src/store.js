@@ -9,7 +9,6 @@ import thunk from 'redux-thunk';
  * @returns {Store}
  */
 export function configureStore(initialState) {
-    console.log('create store initial state = ', initialState);
     let store = createStore(createReducer(), initialState, applyMiddleware(thunk, logger()));
     store.asyncReducers = {};
     return store;

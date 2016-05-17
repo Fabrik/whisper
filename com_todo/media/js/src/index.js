@@ -65,10 +65,10 @@
                     var i, li,
                         todos = state.com_todo.todos;
 
-                    // Clear out the todo list
+                    // Clear out the list
                     list.innerHTML = '';
 
-                    // Loop over the todos and add <li>s for each todo
+                    // Loop over the todos and add <li>s for each item
                     for (i = 0; i < todos.length; i++) {
                         li = document.createElement('li');
                         li.setAttribute('data-id', todos[i].id);
@@ -76,6 +76,7 @@
                         list.appendChild(li);
                     }
 
+                    // Reset the input to ''
                     input.value = '';
                 })
             );
@@ -103,19 +104,20 @@
             });
 
         // Delegated click event for list todos
-        list.addEventListener('click', function(e) {
-            // e.target was the clicked element
-            if (e.target && e.target.matches('li')) {
+        list
+            .addEventListener('click', function (e) {
+                // e.target was the clicked element
+                if (e.target && e.target.matches('li')) {
 
-                // Create the delete action
-                var action = {
-                    type: 'COM_TODO.DELETE',
-                    id: e.target.getAttribute('data-id')
+                    // Create the delete action
+                    var action = {
+                        type: 'COM_TODO.DELETE',
+                        id  : e.target.getAttribute('data-id')
+                    }
+                    document.dispatchEvent(
+                        $w.trigger('whisper.dispatch', {action: action})
+                    );
                 }
-                document.dispatchEvent(
-                    $w.trigger('whisper.dispatch', {action: action})
-                );
-            }
-        });
+            });
     });
 })(Joomla.whisper);
