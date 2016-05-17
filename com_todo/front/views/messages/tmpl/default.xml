@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Todos" option="com_todo_option">
+
+		<message>
+			Todos
+		</message>
+	</layout>
+
+</metadata>
