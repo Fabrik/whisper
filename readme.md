@@ -1,13 +1,17 @@
 Whisper
 =======
 
-This is a javascript [Joomla!](http://joomla.org) system plugin.
+This is a javascript [Joomla!](http://joomla.org) system plugin, in plg_sys_whisper and an 
+accopanying demo component and module.
+
 It implements [Redux](https://github.com/reactjs/redux) providing a predictable state container for 
 Joomla! components and modules.
 
 Building
 =========
 You will need to have npm and gulp installed. Then from a console run the following:
+
+> cd plg_sys_whisper
 
 > npm install
 
