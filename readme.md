@@ -10,6 +10,7 @@ Building
 You will need to have npm and gulp installed. Then from a console run the following:
 
 > npm install
+
 > gulp
 
 Usage
