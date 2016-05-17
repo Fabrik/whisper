@@ -22,9 +22,8 @@ Usage
 
 Please take a look at com_todo and mod_counter
 
-com_todo allows you to add and delete todo's from Whisper's store
-
-mod_counter subscribes to the stores changes and updates its UI showing the total number of todos.
+ * com_todo allows you to add and delete todo's from Whisper's store
+ * mod_counter subscribes to the stores changes and updates its UI showing the total number of todos.
 
 Multiple components / modules can thus control their own data domain, and observe others.
 If they want to update other domains within the store then events should be fired, this ensures
