@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     babelify = require('babelify'),
     source = require('vinyl-source-stream'),
     uglify = require('gulp-uglify'),
-    envify = require('loose-envify'),
     buffer = require('vinyl-buffer');
 
     gulp.task('watch', function () {

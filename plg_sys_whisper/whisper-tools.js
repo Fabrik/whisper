@@ -18,6 +18,8 @@ Joomla.whisper.trigger = function (name, data) {
         event = document.createEvent(name);
         event.initCustomEvent(name, true, true, data);
     }
+
+    document.dispatchEvent(event);
     return event;
 }
 

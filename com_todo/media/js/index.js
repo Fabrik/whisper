@@ -1,1 +1,115 @@
-!function t(e,r,n){function o(d,a){if(!r[d]){if(!e[d]){var c="function"==typeof require&&require;if(!a&&c)return c(d,!0);if(i)return i(d,!0);var u=new Error("Cannot find module '"+d+"'");throw u.code="MODULE_NOT_FOUND",u}var s=r[d]={exports:{}};e[d][0].call(s.exports,function(t){var r=e[d][1][t];return o(r?r:t)},s,s.exports,t,e,r,n)}return r[d].exports}for(var i="function"==typeof require&&require,d=0;d<n.length;d++)o(n[d]);return o}({1:[function(t,e,r){"use strict";!function(t){var e=function(){var e=arguments.length<=0||void 0===arguments[0]?{todos:[]}:arguments[0],r=arguments[1],n=t.reducerHelper;if(!r||!r.type)return e;switch(r.type){case"COM_TODO.ADD":var o={id:(new Date).getTime(),text:r.text,completed:!1};return Object.assign({},e,{todos:n.add(e.todos,o)});case"COM_TODO.DELETE":return Object.assign({},e,{todos:n.remove(e.todos,r.id)});default:return e}};document.dispatchEvent(t.trigger("whisper.addReducer",{name:"com_todo",reducer:e})),t.ready(function(){function e(){document.dispatchEvent(t.trigger("whisper.getState",function(t){var e,o,i=t.com_todo.todos;for(n.innerHTML="",e=0;e<i.length;e++)o=document.createElement("li"),o.setAttribute("data-id",i[e].id),o.innerHTML=i[e].text,n.appendChild(o);r.value=""}))}var r=document.querySelector("input[data-todoInput]"),n=document.querySelector("*[data-todos]"),o=document.querySelector("button[data-addTodo]");e(),document.dispatchEvent(t.trigger("whisper.subscribe",e)),o.addEventListener("click",function(){var e={type:"COM_TODO.ADD",text:r.value};document.dispatchEvent(t.trigger("whisper.dispatch",{action:e}))}),n.addEventListener("click",function(e){if(e.target&&e.target.matches("li")){var r={type:"COM_TODO.DELETE",id:e.target.getAttribute("data-id")};document.dispatchEvent(t.trigger("whisper.dispatch",{action:r}))}})})}(Joomla.whisper)},{}]},{},[1]);
+/**
+ * For whisper - a Joomla! redux implementation
+ */
+
+
+// An anonymous self invoked function
+(function ($w) {
+
+    var initialState = {todos: []};
+    /**
+     * Add in a reducer to the framework
+     * This function alters the component's state
+     * @param {*} state
+     * @param {Object} action
+     * @return {Object} A new object - NOT a mutation of state but a COPY
+     */
+    var reducer = function (state, action) {
+        if (state === undefined) {
+            state = initialState;
+        }
+        var helper = $w.reducerHelper;
+        if (!action || !action.type) {
+            return state;
+        }
+        switch (action.type) {
+
+            case 'COM_TODO.ADD':
+                var todo = {
+                    id       : new Date().getTime(),
+                    text     : action.text,
+                    completed: false
+                };
+                return Object.assign({}, state, {
+                    todos: helper.add(state.todos, todo)
+                });
+
+            case 'COM_TODO.DELETE':
+                return Object.assign({}, state, {
+                    todos: helper.remove(state.todos, action.id)
+                });
+
+            default:
+                return state
+        }
+    };
+
+    /**
+     * If whisper is installed & published then it will pick up this event,
+     * and add the reducer to itself.
+     */
+    $w.trigger('whisper.addReducer', {name: 'com_todo', reducer: reducer});
+
+    /*** UI - would usually be replaced with a React/Angular view ***/
+
+    $w.ready(function () {
+
+        var input = document.querySelector('input[data-todoInput]'),
+            list = document.querySelector('*[data-todos]'),
+            addButton = document.querySelector('button[data-addTodo]');
+
+        var render = function () {
+            $w.trigger('whisper.getState', function (state) {
+
+                var i, li,
+                    todos = state.com_todo.todos;
+
+                // Clear out the list
+                list.innerHTML = '';
+
+                // Loop over the todos and add <li>s for each item
+                for (i = 0; i < todos.length; i++) {
+                    li = document.createElement('li');
+                    li.setAttribute('data-id', todos[i].id);
+                    li.innerHTML = todos[i].text;
+                    list.appendChild(li);
+                }
+
+                // Reset the input to ''
+                input.value = '';
+            })
+        }
+
+        // Update the page with the state
+        render();
+
+        // Subscribe to state changes, each time the state is changed render() is run
+        $w.trigger('whisper.subscribe', render)
+
+        // Add event to add todo button
+        addButton
+            .addEventListener('click', function () {
+                // Our action we want to dispatch
+                var action = {
+                    type: 'COM_TODO.ADD',
+                    text: input.value
+                }
+                $w.trigger('whisper.dispatch', {action: action})
+            });
+
+        // Delegated click event for list todos
+        list
+            .addEventListener('click', function (e) {
+                // e.target was the clicked element
+                if (e.target && e.target.matches('li')) {
+
+                    // Create the delete action
+                    var action = {
+                        type: 'COM_TODO.DELETE',
+                        id  : e.target.getAttribute('data-id')
+                    }
+                    $w.trigger('whisper.dispatch', {action: action})
+                }
+            });
+    });
+})(Joomla.whisper);

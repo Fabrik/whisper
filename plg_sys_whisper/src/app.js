@@ -13,7 +13,7 @@ let store = configureStore({});
  * @param {event} event
  */
 const addReducer = (event) => {
-    var d = event.detail;
+    const d = event.detail;
     injectAsyncReducer(store, d.name, d.reducer);
     // Optional function that can be run once the reducer has been added to Whisper
     if (d.onAdd !== undefined) {
@@ -28,7 +28,7 @@ const addReducer = (event) => {
  * @param {event} event
  */
 const dispatch = (event) => {
-    var d = event.detail;
+    const d = event.detail;
     store.dispatch(d.action);
 };
 
@@ -39,7 +39,7 @@ const dispatch = (event) => {
  */
 const getState = (event) => {
     // d will be the callback function that was passed in the event
-    var d = event.detail;
+    const d = event.detail;
     return d(store.getState());
 };
 
@@ -49,7 +49,7 @@ const getState = (event) => {
  * @param {event} event
  */
 const subscribe = (event) => {
-    var d = event.detail;
+    const d = event.detail;
     store.subscribe(d);
 };
 
